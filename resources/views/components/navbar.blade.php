@@ -10,8 +10,9 @@
             <a href="{{ route('home') }}#about">Tentang</a>
             <a href="{{ route('home') }}#publications">Publikasi</a>
             <a href="{{ route('home') }}#case-studies">Studi Kasus</a>
-            <a href="{{ route('home') }}#lab">Lab</a>
+            <a href="{{ route('home') }}#lab">Laboratorium</a>
             <a href="{{ route('home') }}#methodology">Metodologi</a>
+            <a href="{{ route('cv.download') }}">Unduh CV</a>
             <a href="{{ route('home') }}#contact">Kontak</a>
         </nav>
         <div class="nav-actions">
