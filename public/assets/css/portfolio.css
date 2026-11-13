@@ -3,3 +3,5 @@
 :where(.brand-text small,.primary-nav a,.availability,.eyebrow,.section-kicker,.section-index,.aside-label,.aside-location,.hero-aside small,.metric small,.credential-grid small,.credential-line span,.card-meta,.status-tag,.category-tag,.social-row a,.text-link,.text-button,.back-link,.button,.filter-chip,.tech-list span,.case-summary strong,.lab-tab,.form-note,.form-error,.form-success,.footer-links a,.footer-bottom,.json-output,.api-result){font-size:12px}
 
 .json-tree{min-height:180px}.json-tree details{margin:5px 0 5px 12px}.json-tree summary{cursor:pointer;color:var(--accent);font:12px 'JetBrains Mono',monospace}.json-tree-node>span{display:block;padding:3px 0 3px 14px;color:var(--text);font:12px 'JetBrains Mono',monospace;overflow-wrap:anywhere}.json-tree details[open]>summary{margin-bottom:5px}
+
+.footer-top p{font-size:12px}
