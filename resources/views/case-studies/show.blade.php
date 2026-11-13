@@ -1,0 +1,5 @@
+@extends('layouts.app')
+@section('title', $caseStudy['name'].' — Case Study')
+@section('content')
+<section class="detail-hero"><div class="container detail-content"><a class="back-link" href="{{ route('home') }}#case-studies">← Kembali ke studi kasus</a><span class="category-tag">{{ $caseStudy['category'] }}</span><h1>{{ $caseStudy['name'] }}</h1><p class="muted">{{ $caseStudy['status'] }}</p><div class="detail-block"><h2>Problem</h2><p>{{ $caseStudy['problem'] }}</p></div><div class="detail-block"><h2>Solution</h2><p>{{ $caseStudy['solution'] }}</p></div><div class="detail-block"><h2>Impact & limitations</h2><p>{{ $caseStudy['impact'] }}</p></div><div class="tech-list">@foreach($caseStudy['stack'] as $technology)<span>{{ $technology }}</span>@endforeach</div><div class="card-actions">@if($caseStudy['repository'])<a class="text-link" href="{{ $caseStudy['repository'] }}" target="_blank" rel="noopener">GitHub repository ↗</a>@endif @if($caseStudy['demo'])<a class="text-link" href="{{ $caseStudy['demo'] }}" target="_blank" rel="noopener">Live demo ↗</a>@endif</div></div></section>
+@endsection
