@@ -51,11 +51,48 @@
     };
     const jsonOutput = document.querySelector('#json-output');
     const filterInput = document.querySelector('#json-filter');
+    const filterJson = (value, query) => {
+        if (!query) return value;
+        if (value === null || typeof value !== 'object') {
+            return String(value).toLowerCase().includes(query) ? value : undefined;
+        }
+        const entries = Object.entries(value).reduce((result, [key, child]) => {
+            if (key.toLowerCase().includes(query)) result[key] = child;
+            else {
+                const match = filterJson(child, query);
+                if (match !== undefined) result[key] = match;
+            }
+            return result;
+        }, {});
+        return Object.keys(entries).length ? (Array.isArray(value) ? Object.values(entries) : entries) : undefined;
+    };
+    const createJsonNode = (key, value, rootNode = false) => {
+        const node = document.createElement('div');
+        node.className = 'json-tree-node';
+        if (value !== null && typeof value === 'object') {
+            const details = document.createElement('details');
+            details.open = rootNode;
+            const summary = document.createElement('summary');
+            const count = Object.keys(value).length;
+            summary.textContent = key + (Array.isArray(value) ? ' [array: ' : ' [object: ') + count + ']';
+            details.append(summary);
+            Object.entries(value).forEach(([childKey, childValue]) => details.append(createJsonNode(childKey, childValue)));
+            node.append(details);
+        } else {
+            const leaf = document.createElement('span');
+            leaf.textContent = key + ': ' + JSON.stringify(value);
+            node.append(leaf);
+        }
+        return node;
+    };
     const renderJson = () => {
         if (!jsonOutput) return;
-        const query = (filterInput?.value || '').toLowerCase();
-        const filtered = Object.fromEntries(Object.entries(sample).filter(([key, value]) => (key + JSON.stringify(value)).toLowerCase().includes(query)));
-        jsonOutput.textContent = JSON.stringify(query ? filtered : sample, null, 2);
+        const query = (filterInput?.value || '').trim().toLowerCase();
+        const filtered = filterJson(sample, query);
+        jsonOutput.replaceChildren();
+        jsonOutput.append(filtered === undefined
+            ? document.createTextNode('Tidak ada atribut yang cocok.')
+            : createJsonNode('telemetry', filtered, true));
     };
     filterInput?.addEventListener('input', renderJson);
     renderJson();
