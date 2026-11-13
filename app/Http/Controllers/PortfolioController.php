@@ -1,13 +1,13 @@
 <?php
 
-namespace App\\Http\\Controllers;
+namespace App\Http\Controllers;
 
-use Illuminate\\Http\\RedirectResponse;
-use Illuminate\\Http\\Request;
-use Illuminate\\Support\\Facades\\Log;
-use Illuminate\\Support\\Facades\\Mail;
-use Illuminate\\View\\View;
-use Symfony\\Component\\HttpFoundation\\BinaryFileResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PortfolioController extends Controller
 {
@@ -54,14 +54,14 @@ class PortfolioController extends Controller
 
         try {
             Mail::raw(
-                "Nama: {$validated['name']}\\nEmail: {$validated['email']}\\nTopik: {$validated['subject']}\\n\\n{$validated['message']}",
+                "Nama: {$validated['name']}\nEmail: {$validated['email']}\nTopik: {$validated['subject']}\n\n{$validated['message']}",
                 function ($mail) use ($recipient, $validated): void {
                     $mail->to($recipient)
                         ->replyTo($validated['email'], $validated['name'])
                         ->subject('[Portfolio] '.$validated['subject']);
                 }
             );
-        } catch (\\Throwable $exception) {
+        } catch (\Throwable $exception) {
             Log::error('Portfolio contact delivery failed', ['exception' => $exception::class]);
             return back()->withInput()->with('contact_error', 'Pesan belum dapat dikirim. Silakan gunakan kontak email atau WhatsApp.');
         }
