@@ -30,7 +30,10 @@ class PortfolioController extends Controller
         $publication = collect(config('research.publications'))->firstWhere('slug', $slug);
         abort_if(!$publication, 404);
 
-        return view('publications.show', compact('publication'));
+        return view('publications.show', [
+            'publication' => $publication,
+            'profile' => config('research.profile'),
+        ]);
     }
 
     public function caseStudyDetail(string $slug): View
@@ -38,7 +41,10 @@ class PortfolioController extends Controller
         $caseStudy = collect(config('research.case_studies'))->firstWhere('slug', $slug);
         abort_if(!$caseStudy, 404);
 
-        return view('case-studies.show', compact('caseStudy'));
+        return view('case-studies.show', [
+            'caseStudy' => $caseStudy,
+            'profile' => config('research.profile'),
+        ]);
     }
 
     public function sendContact(Request $request): RedirectResponse
