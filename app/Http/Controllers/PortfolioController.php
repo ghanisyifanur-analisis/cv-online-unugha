@@ -75,6 +75,14 @@ class PortfolioController extends Controller
         return back()->with('contact_success', 'Pesan berhasil dikirim. Terima kasih telah menghubungi saya.');
     }
 
+    public function previewCv(): View
+    {
+        return view('cv.preview', [
+            'profile' => config('research.profile'),
+            'cvAvailable' => is_file(public_path('documents/cv-rizqi-ghani-adinata.pdf')),
+        ]);
+    }
+
     public function downloadCv(): BinaryFileResponse
     {
         $path = public_path('documents/cv-rizqi-ghani-adinata.pdf');
