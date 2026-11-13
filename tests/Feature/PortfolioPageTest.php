@@ -20,6 +20,11 @@ class PortfolioPageTest extends TestCase
             ->assertSee('Analisis Deteksi Anomali Trafik Jaringan');
     }
 
+    public function test_cv_preview_page_renders_without_uploaded_pdf(): void
+    {
+        $this->get('/cv')->assertOk()->assertSee('Dokumen CV belum tersedia');
+    }
+
     public function test_unknown_publication_returns_404(): void
     {
         $this->get('/publikasi/unknown-paper')->assertNotFound();
