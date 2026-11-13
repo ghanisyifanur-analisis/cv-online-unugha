@@ -1,32 +1,40 @@
-# Portofolio Pemrograman Web — Rizqi Ghani Adinata
+# Academic Research & Software Engineering Portfolio
 
-Portofolio akademik untuk mendokumentasikan latihan dan contoh proyek Program Studi Sistem Informasi, UNUGHA Cilacap.
+Laravel 12 application for Rizqi Ghani Adinata. This branch migrates the former static HTML/CSS/JavaScript portfolio into a server-rendered Blade application.
 
-## Isi
+## Requirements
+- PHP 8.2+
+- Composer 2
+- SQLite or MySQL
 
-- **15 rekam demonstrasi** dalam `examples/projects.json`, semuanya data fiktif.
-- **Laboratorium kode terpisah** untuk Laravel/PHP, JSON, CSS, Java, dan JavaScript.
-- Antarmuka interaktif: filter kategori, pratinjau data JSON, pencarian judul, dan salin kode.
-- Setiap contoh tersedia sebagai berkas mandiri di `examples/`.
-
-## Menjalankan pratinjau lokal
-
-Karena situs membaca berkas contoh dengan `fetch`, jalankan server statis dari folder proyek:
-
-```sh
-python -m http.server 8000
+## Local setup
+```bash
+git clone https://github.com/ghanisyifanur-analisis/cv-online-unugha.git
+cd cv-online-unugha
+git checkout feat/laravel-academic-portfolio
+composer install
+cp .env.example .env
+php artisan key:generate
+mkdir -p database
+touch database/database.sqlite
+php artisan serve
 ```
+Open http://127.0.0.1:8000. Configure database and SMTP in `.env` before using the contact form in production.
 
-Buka `http://localhost:8000`. Tanpa server, tautan unduh tetap tersedia tetapi pratinjau kode lintas berkas tidak dapat dimuat dari `file://`.
+## Content management
+Edit `config/research.php` to update profile, links, metrics, publications, case studies, methodology, education and certifications. Metrics and publication metadata are intentionally marked as placeholders until independently verified.
 
-## Batas runtime
+## CV
+Place the final PDF at `public/documents/cv-rizqi-ghani-adinata.pdf`. The download route returns 404 until the file is provided.
 
-Cloudflare Pages melayani situs ini sebagai aset statis. Berkas Laravel/PHP dan Java ditampilkan sebagai materi sumber dan keluaran demonstrasi; untuk menjalankannya diperlukan runtime Laravel/PHP atau Java Development Kit (JDK) di lingkungan terpisah. Situs ini tidak mengirimkan atau menyimpan data formulir.
+## Contact form
+The form includes CSRF protection, validation and IP-based rate limiting (3 requests/minute). Configure SMTP environment variables; do not commit credentials or `.env`.
 
-## Cloudflare Pages dan domain
+## Interactive research lab
+The JSON inspector, API tester and Chart.js plot use synthetic in-browser sample data. The API tester is explicitly a mock and does not send network requests.
 
-Repo terhubung ke proyek Pages `cv-online-unugha` pada akun Cloudflare ini. Untuk situs statis tanpa proses kompilasi, gunakan build command `exit 0` dan direktori keluaran `.` (folder utama repo). Cloudflare Pages juga mengharuskan `index.html` berada di direktori keluaran.
+## Deployment
+This application requires a PHP-capable host (PHP 8.2+, Composer, and a web server document root pointed to `public/`). GitHub Pages and static-only Cloudflare Pages cannot execute Laravel/PHP. Use a VPS or Laravel-compatible hosting. Set `APP_ENV=production`, `APP_DEBUG=false`, `APP_KEY`, database, and SMTP secrets in the host environment; then run `composer install --no-dev --optimize-autoloader` and `php artisan config:cache route:cache view:cache`.
 
-Untuk domain apex `rizqighaniadinata.my.id`, asosiasikan domain terlebih dahulu melalui **Workers & Pages → cv-online-unugha → Custom domains**. Setelah aktivasi, Cloudflare membuat atau meminta record CNAME Pages yang diperlukan. Periksa record yang sudah ada sebelum menambah atau mengubah record; jangan mengganti MX/TXT email. Dokumentasi: [Cloudflare Pages custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/).
-
-Domain tersebut harus terhubung ke proyek Pages yang benar di akun yang sama. Berkas `CNAME` hanya metadata untuk host statis lain; ia tidak mengaktifkan domain di Cloudflare Pages.
+## Data integrity
+Publication titles and research areas are editable starter content. Do not present placeholder drafts, prototype status, performance claims, credentials or certifications as peer-reviewed/production facts without evidence.
