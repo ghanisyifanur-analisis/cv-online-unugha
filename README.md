@@ -1,9 +1,9 @@
 # Academic Research & Software Engineering Portfolio
 
-Laravel 12 application for Rizqi Ghani Adinata. This branch migrates the former static HTML/CSS/JavaScript portfolio into a server-rendered Blade application.
+Laravel 13 application for Rizqi Ghani Adinata. This branch migrates the former static HTML/CSS/JavaScript portfolio into a server-rendered Blade application.
 
 ## Requirements
-- PHP 8.2+
+- PHP 8.3+
 - Composer 2
 - SQLite or MySQL
 
