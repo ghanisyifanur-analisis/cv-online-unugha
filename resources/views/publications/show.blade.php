@@ -1,0 +1,5 @@
+@extends('layouts.app')
+@section('title', $publication['title'].' — Research')
+@section('content')
+<section class="detail-hero"><div class="container detail-content"><a class="back-link" href="{{ route('home') }}#publications">← Kembali ke publikasi</a><span class="status-tag">{{ $publication['status'] }}</span><p class="section-kicker">{{ $publication['year'] }} / {{ $publication['venue'] }}</p><h1>{{ $publication['title'] }}</h1><p class="byline">{{ $publication['authors'] }}</p><div class="detail-block"><h2>Abstrak</h2><p>{{ $publication['abstract'] }}</p></div><div class="detail-block"><h2>Citation (BibTeX)</h2><pre class="json-output">{{ $publication['bibtex'] }}</pre><button class="button button-secondary copy-citation" type="button" data-bibtex="{{ base64_encode($publication['bibtex']) }}">Salin BibTeX</button></div>@if($publication['code'])<a class="text-link" href="{{ $publication['code'] }}" target="_blank" rel="noopener">Kode / dataset ↗</a>@endif</div></section>
+@endsection
